@@ -83,7 +83,7 @@ def generate_markdown(records):
     today = time.strftime("%Y-%m-%d")
 
     # 初始化 Markdown 内容
-    markdown_content = f"# HelixlifeAI 今日资讯速读 | {today}\n\n"
+    markdown_content = f"# Helixlife-AI-daily 今日资讯速读 | {today}\n\n"
 
     # 提取记录中的速读内容
     for record in records.get('data', {}).get('items', []):
@@ -112,7 +112,7 @@ def generate_markdown(records):
     os.makedirs('data', exist_ok=True)
 
     # 保存文件到 data 目录
-    file_name = f"data/helixlifeAI-daily-{today}.md"
+    file_name = f"data/helixlife-AI-daily-{today}.md"
     with open(file_name, 'w', encoding='utf-8') as file:
         file.write(markdown_content)
     

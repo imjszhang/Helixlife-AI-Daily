@@ -248,11 +248,11 @@ def process_markdown_file_for_date(startdate, block_ids, date_block_id, document
     startdate_str = startdate.strftime('%Y-%m-%d')
 
     # 获取最新的Markdown文件内容
-    file_path = f'data/helixlifeAI-daily-{startdate_str}.md'
+    file_path = f'data/helixlife-AI-daily-{startdate_str}.md'
     markdown_content = read_markdown_file(file_path)
 
     # 从Markdown生成report_data
-    report_title = f"HelixlifeAI 今日资讯速读 | {startdate_str}"
+    report_title = f"Helixlife-AI-daily 今日资讯速读 | {startdate_str}"
     report_date = startdate_str
     report_data = parse_markdown_to_report_data(markdown_content, report_title, report_date)
 

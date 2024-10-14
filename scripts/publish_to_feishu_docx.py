@@ -130,7 +130,7 @@ def generate_daily_report(today):
     feishu_docx_api_handler = FeishuDocxAPIHandler(FEISHU_APP_ID, FEISHU_APP_SECRET)
     # 创建一个新文档
     folder_token = os.getenv('FEISHU_DOCX_FOLDER_TOKEN')
-    new_document_title = f"helixlifeAI-daily-{date_today}"
+    new_document_title = f"helixlife-AI-daily-{date_today}"
     new_document_id = feishu_docx_api_handler.create_new_document(new_document_title, folder_token=folder_token)
 
     if new_document_id:
@@ -140,7 +140,7 @@ def generate_daily_report(today):
         root_block_id = new_document_id  # 根块的 block_id 通常与 document_id 相同
 
        # 获取最新的Markdown文件内容
-        file_path = f'data/helixlifeAI-daily-{date_today}.md'
+        file_path = f'data/helixlife-AI-daily-{date_today}.md'
 
         # 读取指定的Markdown文件内容
         try:
@@ -152,7 +152,7 @@ def generate_daily_report(today):
 
         # 日报数据
         if markdown_content:
-            report_title = f"HelixlifeAI 今日资讯速读 | {date_today}"
+            report_title = f"Helixlife-AI-daily 今日资讯速读 | {date_today}"
             report_date = f"{date_today}"
             report_data = parse_markdown_to_report_data(markdown_content, report_title, report_date)
             #print(report_data)
