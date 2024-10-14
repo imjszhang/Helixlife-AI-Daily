@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from feishu_docx_api_handler import FeishuDocxAPIHandler, BlockType, BlockFactory
 
 # 加载环境变量
-load_dotenv(override=True)
+#load_dotenv(override=True)
 
 # 从环境变量中获取 Feishu API 的 App ID 和 App Secret
 FEISHU_APP_ID = os.getenv('FEISHU_APP_ID')

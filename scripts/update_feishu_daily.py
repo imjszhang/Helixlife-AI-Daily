@@ -5,7 +5,7 @@ import pytz
 from feishu_docx_api_handler import FeishuDocxAPIHandler, BlockType, BlockBatchUpdateRequestBuilder
 import os
 from dotenv import load_dotenv
-load_dotenv(override=True)
+#load_dotenv(override=True)
 
 FEISHU_APP_ID = os.getenv('FEISHU_APP_ID')
 FEISHU_APP_SECRET= os.getenv('FEISHU_APP_SECRET')
@@ -144,10 +144,10 @@ def extract_top_projects_from_report(date_block_id, report_data, block_ids, top_
             ]
         },
         {
-            "block_name": "项目 {index}：评分",
+            "block_name": "项目 {index}：推荐级别",
             "block_id": "test",  # 块 ID
             "new_content": [
-                {"content": "{votes}", "text_element_style": {"bold": False}}  # 更新评分
+                {"content": "{rating}", "text_element_style": {"bold": False}}  # 更新推荐级别
             ]
         },
         {
@@ -187,7 +187,7 @@ def extract_top_projects_from_report(date_block_id, report_data, block_ids, top_
     # 遍历报告中的每个 section，最多提取 top_n 个项目
     for i, section in enumerate(report_data["sections"][:top_n], start=1):
         title = section["heading"] # 提取标题
-        votes = section["content"][0]     # 提取票数
+        rating = section["content"][0]     # 提取推荐级别
         content1 = section["content"][1]  # 提取内容1
         content2 = section["content"][2]  # 提取内容2
         content3 = section["content"][3]  # 提取内容3
@@ -204,7 +204,7 @@ def extract_top_projects_from_report(date_block_id, report_data, block_ids, top_
                 "new_content": [
                     {
                         "content": template["new_content"][0]["content"].format(
-                            index=i, title=title, votes=votes, content1=content1, content2=content2, content3=content3, url=url
+                            index=i, title=title, rating=rating, content1=content1, content2=content2, content3=content3, url=url
                         ),
                         "text_element_style": {"bold": False}
                     }

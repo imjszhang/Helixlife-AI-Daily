@@ -1,0 +1,43 @@
+name: Generate Daily Markdown
+
+on:
+  schedule:
+    - cron: '01 8 * * *'  # 每天UTC时间早上8:01（北京时间下午4:01自动运行）
+  workflow_dispatch:  # 手动触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Generate Markdown
+      env:
+        FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+        FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
+        FEISHU_BITABLE_APP_TOKEN: ${{ secrets.FEISHU_BITABLE_APP_TOKEN }}
+        FEISHU_BITABLE_TABLE_ID: ${{ secrets.FEISHU_BITABLE_TABLE_ID }}
+      run: |
+        python scripts/feishu_bitable_to_md.py
+
+    - name: Commit files
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add .
+        git commit -m "Generated daily content"
+
+    - name: Push changes
+      run: |
+        git push --force https://${{ secrets.PAT }}@github.com/${{ github.repository_owner }}/helixlife-AI-daily.git HEAD:main
