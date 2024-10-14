@@ -1,6 +1,6 @@
 import os
 import time
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 from feishu_bitable_api_handler import FeishuBitableAPIHandler
 
 # 加载环境变量

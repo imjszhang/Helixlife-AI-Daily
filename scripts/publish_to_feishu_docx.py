@@ -3,7 +3,7 @@ import time
 import re
 from datetime import datetime, timedelta, timezone
 import pytz
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 from feishu_docx_api_handler import FeishuDocxAPIHandler, BlockType, BlockFactory
 
 # 加载环境变量
