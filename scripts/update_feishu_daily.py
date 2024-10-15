@@ -2,6 +2,7 @@ import json
 import re
 from datetime import datetime, timedelta, timezone
 import pytz
+from feishu_drive_api_handler import FeishuDriveAPIHandler
 from feishu_docx_api_handler import FeishuDocxAPIHandler, BlockType, BlockBatchUpdateRequestBuilder
 import os
 #from dotenv import load_dotenv
@@ -9,9 +10,37 @@ import os
 
 FEISHU_APP_ID = os.getenv('FEISHU_APP_ID')
 FEISHU_APP_SECRET= os.getenv('FEISHU_APP_SECRET')
+FEISHU_DOCX_FOLDER_TOKEN = os.getenv('FEISHU_DOCX_FOLDER_TOKEN')
+
 # 初始化 FeishuDocxAPIHandler
 feishu_docx_api_handler = FeishuDocxAPIHandler(FEISHU_APP_ID, FEISHU_APP_SECRET)
 
+# 初始化 FeishuDriveAPIHandler
+feishu_drive_api_handler = FeishuDriveAPIHandler(FEISHU_APP_ID, FEISHU_APP_SECRET)
+
+
+# 根据日期，获取飞书文件夹里特定名字的文件的 URL
+def get_file_url_by_date(date_str):
+    """
+    根据日期，获取文件夹里特定名字的文件
+    """
+    folder_token=FEISHU_DOCX_FOLDER_TOKEN
+    name = f"helixlife-AI-daily-{date_str}"  # 使用 f-string 格式化日期
+    file_list, _ = feishu_drive_api_handler.get_folder_files(folder_token, page_size=10)  # 解包元组，忽略第二个元素
+    
+    # 打印 file_list 以调试
+    print(f"文件列表: {file_list}")
+    
+    # 确保 file_list 是一个列表，并且每个元素是字典
+    if isinstance(file_list, list):
+        for file in file_list:
+            # 确保 file 是字典
+            if isinstance(file, dict) and 'name' in file:
+                if name == file['name']:
+                    return file
+    return None
+    
+# 批量修改指定文档的块，根据块的类型选择合适的更新方法
 def batch_modify_document_blocks(document_id, blocks, modifications):
     """
     批量修改文档中的块，根据块的类型选择合适的更新方法
@@ -118,11 +147,13 @@ def parse_markdown_to_report_data(content, report_title, report_date):
     return report_data
 
 
-def extract_top_projects_from_report(date_block_id, report_data, block_ids, top_n=3):
+def extract_top_projects_from_report(date_block_id, file_block_id, report_data, block_ids, top_n=3):
     """
     从 parse_markdown_to_feishu_docx 函数的输出中提取内容，并生成飞书文档的修改列表。
     允许通过 top_n 参数指定提取的项目数量，并通过 block_ids 数组为每个项目动态分配 block_id。
     """
+    file= get_file_url_by_date(report_data["date"]) 
+
     modifications = [
         # 日期块
         {
@@ -130,6 +161,18 @@ def extract_top_projects_from_report(date_block_id, report_data, block_ids, top_
             "block_id": date_block_id,  # 块 ID
             "new_content": [
                 {"content": report_data["date"], "text_element_style": {"bold": False}}  # 使用报告中的日期
+            ]
+        },
+        # 文件链接块
+        {
+            "block_name": "文件链接",
+            "block_id": file_block_id,  # 块 ID
+            "new_content": [
+                {"content": "查看当天全部资讯：", "text_element_style": {"bold": False}},
+                {"content": "查看", "text_element_style": {
+                    "bold": False,
+                    "link": {"url": f"{file['url']}"}  # 更新网址
+                }}
             ]
         }
     ]
@@ -235,7 +278,7 @@ def read_markdown_file(file_path):
         return file.read()
 
 # 读取并解析 Markdown 文件
-def process_markdown_file_for_date(startdate, block_ids, date_block_id, document_id, blocks):
+def process_markdown_file_for_date(startdate, block_ids, date_block_id, file_block_id, document_id, blocks):
     """
     处理指定日期的 Markdown 文件，生成 report_data 并应用到飞书文档中。
     :param startdate: 开始日期
@@ -257,14 +300,14 @@ def process_markdown_file_for_date(startdate, block_ids, date_block_id, document
     report_data = parse_markdown_to_report_data(markdown_content, report_title, report_date)
 
     # 从report_data生成modifications，提取前3个项目
-    modifications = extract_top_projects_from_report(date_block_id, report_data, block_ids)
+    modifications = extract_top_projects_from_report(date_block_id, file_block_id, report_data, block_ids)
 
     # 调用批量修改方法
     batch_modify_document_blocks(document_id, blocks, modifications)
 
 
 # 处理多个日期的 Markdown 文件
-def process_multiple_dates(document_id, blocks, date_block_ids, block_ids_list, days_to_process=0):
+def process_multiple_dates(document_id, blocks, date_block_ids, file_block_ids, block_ids_list, days_to_process=0):
     """
     处理多个日期的 Markdown 文件，并将其内容应用到飞书文档中。
     :param document_id: 飞书文档的 ID
@@ -281,10 +324,11 @@ def process_multiple_dates(document_id, blocks, date_block_ids, block_ids_list, 
 
         # 获取对应的 block_id
         date_block_id = date_block_ids[i]
+        file_block_id = file_block_ids[i]
         block_ids = block_ids_list[i]
 
         # 处理指定日期的 Markdown 文件
-        process_markdown_file_for_date(startdate, block_ids, date_block_id, document_id, blocks)
+        process_markdown_file_for_date(startdate, block_ids, date_block_id, file_block_id, document_id, blocks)
 
 
 # 主函数
@@ -298,6 +342,10 @@ def main():
     # 预定义的 block_id 数组
     date_block_ids = [
         "doxcn2b9xmUFDZ4mpgfTcPt9FBf"  # 第一天的日期块 ID
+    ]
+
+    file_block_ids = [
+        "ArVZdFk7zoS0fxxCJGncbuwZnTg"  # 第一天的文件链接块 ID
     ]
 
     block_ids_list = [
@@ -330,7 +378,7 @@ def main():
     ]
 
     # 处理最近 3 天的 Markdown 文件
-    process_multiple_dates(document_id, blocks, date_block_ids, block_ids_list, days_to_process=0)
+    process_multiple_dates(document_id, blocks, date_block_ids, file_block_ids, block_ids_list, days_to_process=0)
 
 
 if __name__ == "__main__":
