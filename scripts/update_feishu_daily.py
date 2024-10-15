@@ -341,14 +341,17 @@ def main():
 
     # 预定义的 block_id 数组
     date_block_ids = [
-        "doxcn2b9xmUFDZ4mpgfTcPt9FBf"  # 第一天的日期块 ID
+        "doxcn2b9xmUFDZ4mpgfTcPt9FBf",  # 第一天的日期块 ID
+        "A2tHdgXiWob1P7xwtsmcC3MZnFc",  # 第二天的日期块 ID
     ]
 
     file_block_ids = [
-        "ArVZdFk7zoS0fxxCJGncbuwZnTg"  # 第一天的文件链接块 ID
+        "ArVZdFk7zoS0fxxCJGncbuwZnTg",  # 第一天的文件链接块 ID
+        "IgyUdUcD5oGLgXxktjMcI5Vgnte",  # 第二天的文件链接块 ID
     ]
 
     block_ids_list = [
+        #第一天的项目块 ID 列表
         [
             [
             "doxcnaxeHCVCLbvnsE1R6X7CO5u",
@@ -373,6 +376,33 @@ def main():
             "BB3gdvDXeo0szBxkkPhc8nMZn6f",
             "PptRde5aToVOrwxyKJRcXgksnfg",
             "doxcnn0pgzRj2y2DxIUMKCylHbG"
+            ]
+        ],
+        #第二天的项目块 ID 列表
+        [
+            [
+            "A8aZduRrboSXOExJecVcEuIRnWc",
+            "W4QedOiZioJY8yxeCu5cXVPKnSg",
+            "LSgddf5qro8T3nxDfw1cvndVnlR",
+            "Ioxrd0M9WowJVRxhSqycG9OnnKf",
+            "JjoSdsf7vohHO5xa4NLc3Gvdnvh",
+            "XQludqj4ToxhzQxHvV7cbO4snld"
+            ],
+            [
+            "OC5sd2RihoCoOyxvp5ccm7TXnnf",
+            "Bb9kdr21DoMn9nxFhpCc4V2pnKb",
+            "D3qTdTeqNoxU7MxO4p1cfEfjnXK",
+            "Wgt4dTPIto0RaEx8cgrcurUunCh",
+            "MU2PdvRIeowRZ4xBOv4cz6s7npg",
+            "TK9hdPqoaovhOXxAbHlc4RMwnm3"
+            ],
+            [
+            "EnsZdYR70omCg2xndslcdCTHnQc",
+            "IdPKdgGhcoYr5Cxo32QckTu7nkb",
+            "QKWYdzfZSoDAVFxV15DciKRInlh",
+            "IsABdSnUKovffXxNgdNc95ZLnBd",
+            "KjyNdbH6aogkuKx1XvJcEviSnqe",
+            "DH6PdDs12o9y9qxkwB1cFyr8nEb"
             ]
         ]
     ]
