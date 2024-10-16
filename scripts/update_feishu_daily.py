@@ -343,11 +343,13 @@ def main():
     date_block_ids = [
         "doxcn2b9xmUFDZ4mpgfTcPt9FBf",  # 第一天的日期块 ID
         "A2tHdgXiWob1P7xwtsmcC3MZnFc",  # 第二天的日期块 ID
+        "WVRqdUevRoCtA9x3Xg1cTnZInjd",  # 第三天的日期块 ID
     ]
 
     file_block_ids = [
         "ArVZdFk7zoS0fxxCJGncbuwZnTg",  # 第一天的文件链接块 ID
         "IgyUdUcD5oGLgXxktjMcI5Vgnte",  # 第二天的文件链接块 ID
+        "YhGqdRyaboakB2xruzScpAEonFg",  # 第三天的文件链接块 ID
     ]
 
     block_ids_list = [
@@ -404,7 +406,34 @@ def main():
             "KjyNdbH6aogkuKx1XvJcEviSnqe",
             "DH6PdDs12o9y9qxkwB1cFyr8nEb"
             ]
-        ]
+        ],
+        #第三天的项目块 ID 列表
+        [
+            [
+            "WPXQdeNjRoecJlxJlr1cUgD6nde",
+            "Z6GEdNXvsoFrcyxpmKBcbReJnPK",
+            "Hscfd3YE2o2LjHxiZNncqDaynEg",
+            "SpHYdoF3do66VUxNq1GcNAwUnrf",
+            "PGk5doERYoIaOPx3KxccA5LLnyh",
+            "OoYkdonauoZGyZxxLSNcaJelnNe"
+            ],
+            [
+            "UutIdmgoJoRHLBxl3vYcAqmWnlg",
+            "OATKdaevvokk68xTCzecLD3Lnmd",
+            "UqNLdAHvuofoiOxaXABcFuK2nJn",
+            "YeQld9M6xoKJk8x28hGcHAzOnyb",
+            "Hi4ydcL3ho5BxLxCN58cKMsfnNe",
+            "O2nWdrjaeotVonxUMCecigj4n0b"
+            ],
+            [
+            "SPIbduVKfovrPYxbAdccIlAhnjh",
+            "PGJtdDckyoromGxW9Ldcdv9EnFd",
+            "RrRUdJ278oOM5rxtqf2cRQHnnnf",
+            "HbnndGqsYoGBsgxpxtScmWH4nId",
+            "Ihhydm6VYowerwxG0bWcSt26n7b",
+            "BtROdgSoHoqliVxuG3nc3hO4nhh"
+            ]
+        ],        
     ]
 
     # 处理最近 3 天的 Markdown 文件
