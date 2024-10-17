@@ -10,7 +10,6 @@ import os
 
 FEISHU_APP_ID = os.getenv('FEISHU_APP_ID')
 FEISHU_APP_SECRET= os.getenv('FEISHU_APP_SECRET')
-FEISHU_DOCX_FOLDER_TOKEN = os.getenv('FEISHU_DOCX_FOLDER_TOKEN')
 
 # 初始化 FeishuDocxAPIHandler
 feishu_docx_api_handler = FeishuDocxAPIHandler(FEISHU_APP_ID, FEISHU_APP_SECRET)
@@ -24,7 +23,7 @@ def get_file_url_by_date(date_str):
     """
     根据日期，获取文件夹里特定名字的文件
     """
-    folder_token=FEISHU_DOCX_FOLDER_TOKEN
+    folder_token="Fyj3fEqQ4lMMkZdwrYpcmOfUnWp"
     name = f"helixlife-AI-daily-{date_str}"  # 使用 f-string 格式化日期
     file_list, _ = feishu_drive_api_handler.get_folder_files(folder_token, page_size=10)  # 解包元组，忽略第二个元素
     
@@ -316,7 +315,7 @@ def process_multiple_dates(document_id, blocks, date_block_ids, file_block_ids, 
     :param block_ids_list: 每个项目的 block_id 列表
     :param days_to_process: 要处理的天数
     """
-    today = datetime.now(timezone.utc)+timedelta(hours=8)
+    today = datetime.now(timezone.utc)
 
     for i in range(len(date_block_ids)):
         # 获取开始日期

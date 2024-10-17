@@ -7,7 +7,7 @@ on:
   workflow_dispatch:  # 手动触发
 
 jobs:
-  publish_to_feishu_bitable:
+  update_feishu_daily:
     runs-on: ubuntu-latest
     env:
       PUBLISH_ENABLED: 'true'  # 设置环境变量，控制是否启用发布
@@ -28,7 +28,7 @@ jobs:
         pip install pytz
         pip install requests
 
-    - name: Publish to Feishu Document
+    - name: Update Feishu Daily
       if: ${{ env.PUBLISH_ENABLED == 'true' }}  
       env:
         FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
