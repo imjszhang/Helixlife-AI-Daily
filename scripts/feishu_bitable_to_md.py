@@ -84,7 +84,8 @@ def generate_markdown(records):
 
     # 初始化 Markdown 内容
     markdown_content = f"# Helixlife-AI-daily 今日资讯速读 | {today}\n\n"
-
+    
+    record_num=1
     # 提取记录中的速读内容
     for record in records.get('data', {}).get('items', []):
         # 获取速读内容
@@ -107,6 +108,17 @@ def generate_markdown(records):
             # 如果速读内容只有一行，直接输出
             markdown_content += f'# {summary}\n'
             #markdown_content += f'- 推荐级别: {rating}\n'
+        
+        # 更新record里的推送编号字段
+        record_id = record.get('record_id')
+        fields = {
+            "推送编号": record_num
+        }
+        # 更新记录
+        # 初始化 Feishu Bitable API 处理器
+        feishu_bitable_api_handler = FeishuBitableAPIHandler(FEISHU_APP_ID, FEISHU_APP_SECRET)        
+        feishu_bitable_api_handler.update_record(FEISHU_BITABLE_APP_TOKEN, FEISHU_BITABLE_TABLE_ID, record_id, fields)
+        record_num+=1
 
     # 确保 data 目录存在
     os.makedirs('data', exist_ok=True)

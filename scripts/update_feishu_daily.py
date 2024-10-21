@@ -200,7 +200,7 @@ def extract_top_projects_from_report(date_block_id, file_block_id, report_data, 
             ]
         },  
         {
-            "block_name": "项目 {index}：描述1",
+            "block_name": "项目 {index}：描述3",
             "block_id": "test",  # 块 ID
             "new_content": [
                 {"content": "{content3}", "text_element_style": {"bold": False}}  # 更新内容3
@@ -222,9 +222,9 @@ def extract_top_projects_from_report(date_block_id, file_block_id, report_data, 
     # 遍历报告中的每个 section，最多提取 top_n 个项目
     for i, section in enumerate(report_data["sections"][:top_n], start=1):
         title = section["heading"] # 提取标题
-        content1 = section["content"][1]  # 提取内容1
-        content2 = section["content"][2]  # 提取内容2
-        content3 = section["content"][3]  # 提取内容3
+        content1 = section["content"][0]  # 提取内容1
+        content2 = section["content"][1]  # 提取内容2
+        content3 = section["content"][2]  # 提取内容3
         url = section["article_link"]["url"]  # 原文链接
         
         
