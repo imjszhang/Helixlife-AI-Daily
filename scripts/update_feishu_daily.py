@@ -186,13 +186,6 @@ def extract_top_projects_from_report(date_block_id, file_block_id, report_data, 
             ]
         },
         {
-            "block_name": "项目 {index}：推荐级别",
-            "block_id": "test",  # 块 ID
-            "new_content": [
-                {"content": "{rating}", "text_element_style": {"bold": False}}  # 更新推荐级别
-            ]
-        },
-        {
             "block_name": "项目 {index}：描述1",
             "block_id": "test",  # 块 ID
             "new_content": [
@@ -229,7 +222,6 @@ def extract_top_projects_from_report(date_block_id, file_block_id, report_data, 
     # 遍历报告中的每个 section，最多提取 top_n 个项目
     for i, section in enumerate(report_data["sections"][:top_n], start=1):
         title = section["heading"] # 提取标题
-        rating = section["content"][0]     # 提取推荐级别
         content1 = section["content"][1]  # 提取内容1
         content2 = section["content"][2]  # 提取内容2
         content3 = section["content"][3]  # 提取内容3
@@ -246,7 +238,7 @@ def extract_top_projects_from_report(date_block_id, file_block_id, report_data, 
                 "new_content": [
                     {
                         "content": template["new_content"][0]["content"].format(
-                            index=i, title=title, rating=rating, content1=content1, content2=content2, content3=content3, url=url
+                            index=i, title=title, content1=content1, content2=content2, content3=content3, url=url
                         ),
                         "text_element_style": {"bold": False}
                     }
@@ -356,7 +348,6 @@ def main():
         [
             [
             "doxcnaxeHCVCLbvnsE1R6X7CO5u",
-            "doxcne8qmOfXIMtZBQaBoTc0nKb",
             "doxcnFN3RnnrGoTldsdTtGh1iyc",
             "YFwOdqzldoudlUxiLAScjsc9ntg",
             "MBKQdunYyoBHlbxMBDFcDVoFnkb",
@@ -364,7 +355,6 @@ def main():
             ],
             [
             "doxcnjrrpQlWtOj4WSvLTXiQ2Te",
-            "OQnkd30yOo3kiYxdYaqcI2eknBc",
             "QbiGd52RXouawZxhSpZcSsyRnQg",
             "SqU6dfJYloX3QexwBXBcQQ2knrT",
             "LdBxdFiwXo017GxAcAYcKl1Hnic",
@@ -372,7 +362,6 @@ def main():
             ],
             [
             "doxcntTsGoe9X0ziEx9ufkQxr3e",
-            "Lc7CdevUfouGpfxJKNvcCRrKnkd",
             "A8oddUqjSo18oUxC0Jfc2I1VnYc",
             "BB3gdvDXeo0szBxkkPhc8nMZn6f",
             "PptRde5aToVOrwxyKJRcXgksnfg",
@@ -383,7 +372,6 @@ def main():
         [
             [
             "A8aZduRrboSXOExJecVcEuIRnWc",
-            "W4QedOiZioJY8yxeCu5cXVPKnSg",
             "LSgddf5qro8T3nxDfw1cvndVnlR",
             "Ioxrd0M9WowJVRxhSqycG9OnnKf",
             "JjoSdsf7vohHO5xa4NLc3Gvdnvh",
@@ -391,7 +379,6 @@ def main():
             ],
             [
             "OC5sd2RihoCoOyxvp5ccm7TXnnf",
-            "Bb9kdr21DoMn9nxFhpCc4V2pnKb",
             "D3qTdTeqNoxU7MxO4p1cfEfjnXK",
             "Wgt4dTPIto0RaEx8cgrcurUunCh",
             "MU2PdvRIeowRZ4xBOv4cz6s7npg",
@@ -399,7 +386,6 @@ def main():
             ],
             [
             "EnsZdYR70omCg2xndslcdCTHnQc",
-            "IdPKdgGhcoYr5Cxo32QckTu7nkb",
             "QKWYdzfZSoDAVFxV15DciKRInlh",
             "IsABdSnUKovffXxNgdNc95ZLnBd",
             "KjyNdbH6aogkuKx1XvJcEviSnqe",
@@ -410,7 +396,6 @@ def main():
         [
             [
             "WPXQdeNjRoecJlxJlr1cUgD6nde",
-            "Z6GEdNXvsoFrcyxpmKBcbReJnPK",
             "Hscfd3YE2o2LjHxiZNncqDaynEg",
             "SpHYdoF3do66VUxNq1GcNAwUnrf",
             "PGk5doERYoIaOPx3KxccA5LLnyh",
@@ -418,7 +403,6 @@ def main():
             ],
             [
             "UutIdmgoJoRHLBxl3vYcAqmWnlg",
-            "OATKdaevvokk68xTCzecLD3Lnmd",
             "UqNLdAHvuofoiOxaXABcFuK2nJn",
             "YeQld9M6xoKJk8x28hGcHAzOnyb",
             "Hi4ydcL3ho5BxLxCN58cKMsfnNe",
@@ -426,7 +410,6 @@ def main():
             ],
             [
             "SPIbduVKfovrPYxbAdccIlAhnjh",
-            "PGJtdDckyoromGxW9Ldcdv9EnFd",
             "RrRUdJ278oOM5rxtqf2cRQHnnnf",
             "HbnndGqsYoGBsgxpxtScmWH4nId",
             "Ihhydm6VYowerwxG0bWcSt26n7b",

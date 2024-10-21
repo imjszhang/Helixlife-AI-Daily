@@ -91,7 +91,7 @@ def generate_markdown(records):
         summary = concat_text(record.get('fields', {}).get('速读', [{}]))
         
         # 获取推荐级别
-        rating = record.get('fields', {}).get('推荐级别', 0)
+        #rating = record.get('fields', {}).get('推荐级别', 0)
 
         # 将速读内容按行分割
         summary_lines = summary.split('\n')
@@ -101,12 +101,12 @@ def generate_markdown(records):
             first_line = summary_lines[0]
             remaining_lines = '\n'.join(summary_lines[1:])
             markdown_content += f'# {first_line}\n'
-            markdown_content += f'- 推荐级别: {rating}\n'
+            #markdown_content += f'- 推荐级别: {rating}\n'
             markdown_content += f'{remaining_lines}\n\n'
         else:
             # 如果速读内容只有一行，直接输出
             markdown_content += f'# {summary}\n'
-            markdown_content += f'- 推荐级别: {rating}\n'
+            #markdown_content += f'- 推荐级别: {rating}\n'
 
     # 确保 data 目录存在
     os.makedirs('data', exist_ok=True)
