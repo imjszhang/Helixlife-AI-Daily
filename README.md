@@ -1,1 +1,1 @@
-# Helixlife-AI-Daily
+# Helixlife-AI-Daily-Insight
